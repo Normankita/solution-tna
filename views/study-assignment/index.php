@@ -21,30 +21,41 @@ $this->title = 'Assign Employee to Study';
     </div>
 <?php endif; ?>
 
-<?php $form = ActiveForm::begin([
-    'action' => ['study-assignment/assign'],
-    'method' => 'post',
-    'options' => ['enctype' => 'multipart/form-data']
-]); ?>
+<div class="card">
+    <div class="card-body">
+        <?php $form = ActiveForm::begin([
+            'action' => ['study-assignment/assign'],
+            'method' => 'post',
+            'options' => ['enctype' => 'multipart/form-data']
+        ]); ?>
 
-<?= $form->field($model, 'employee_id')->dropDownList(
-    ArrayHelper::map($employees, 'id', 'name'),
-    ['prompt' => 'Select Employee', 'id' => 'employee-dropdown']
-) ?>
+        <?= $form->field($model, 'employee_id')->dropDownList(
+            ArrayHelper::map($employees, 'id', 'name'),
+            ['prompt' => 'Select Employee', 'id' => 'employee-dropdown']
+        ) ?>
 
-<div id="employee-details" style="margin-top: 20px;"></div>
+        <div id="employee-details" style="margin-top: 20px; padding: 20px; border: 1px solid #ddd; border-radius: 5px; display: none;"></div>
 
-<?= $form->field($model, 'level_id')->dropDownList(
-    ArrayHelper::map($educationLevels, 'id', 'name'),
-    ['prompt' => 'Select Next Education Level']
-) ?>
 
-<?= $form->field($model, 'file')->fileInput() ?>
+        <?= $form->field($model, 'level_id')->dropDownList(
+            ArrayHelper::map($educationLevels, 'id', 'name'),
+            ['prompt' => 'Select Next Education Level']
+        ) ?>
 
-<br>
-<?= Html::submitButton('Assign to Study', ['class' => 'btn btn-primary']) ?>
+        <?= $form->field($model, 'competence')->textInput(['maxlength' => true]) ?>
 
-<?php ActiveForm::end(); ?>
+        <?= $form->field($model, 'gap')->textInput(['maxlength' => true]) ?>
+
+        <?= $form->field($model, 'additional_details')->textarea(['rows' => 6]) ?>
+
+        <?= $form->field($model, 'file')->fileInput() ?>
+
+        <br>
+        <?= Html::submitButton('Assign to Study', ['class' => 'btn btn-primary']) ?>
+
+        <?php ActiveForm::end(); ?>
+    </div>
+</div>
 
 <script>
 $('#employee-dropdown').on('change', function() {
@@ -63,7 +74,7 @@ $('#employee-dropdown').on('change', function() {
                 return;
             }
 
-            $('#employee-details').html(`
+            $('#employee-details').show().html(`
                 <div class="card mt-3">
                     <div class="card-body">
                         <h4>Employee Details</h4>
