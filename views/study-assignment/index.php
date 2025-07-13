@@ -60,10 +60,14 @@ $this->title = 'Assign Employee to Study';
 \yii\web\YiiAsset::register($this);
 $this->registerJs(
     "yii.urls = { employeeDetails: '" . Url::to(['study-assignment/employee-details']) . "' };",
-    \yii\web\View::POS_HEAD
+    \yii\web\View::POS_HEAD,
+    'yii-urls'
 );
 $this->registerJsFile(
     '@web/js/study-assignment.js',
-    ['depends' => [\yii\web\JqueryAsset::class]]
+    [
+        'depends' => [\yii\web\YiiAsset::class, \yii\web\JqueryAsset::class],
+        'position' => \yii\web\View::POS_READY
+    ]
 );
 ?>
