@@ -57,9 +57,9 @@ $this->title = 'Assign Employee to Study';
 </div>
 
 <?php
-$this->registerJsFile('@web/js/study-assignment.js', ['depends' => [\yii\web\JqueryAsset::class]]);
 $this->registerJs(
-    "yii.urls = { employeeDetails: '" . Url::to(['study-assignment/employee-details']) . "' };",
+    "var yii = yii || {}; yii.urls = { employeeDetails: '" . Url::to(['study-assignment/employee-details']) . "' };",
     \yii\web\View::POS_HEAD
 );
+$this->registerJsFile('@web/js/study-assignment.js', ['depends' => [\yii\web\JqueryAsset::class]]);
 ?>
