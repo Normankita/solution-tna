@@ -62,10 +62,12 @@ class StudyAssignmentController extends Controller
             return ['error' => 'Employee not found'];
         }
 
+        $latestEducation = $employee->getLatestEducation()->one();
+
         return $this->asJson([
             'name' => $employee->name,
-            'current_education' => $employee->educationLevel->name ?? 'N/A',
-            'skills' => $employee->skills ?? 'None',
+            'current_education' => $latestEducation ? $latestEducation->level->name : 'N/A',
+            'skills' => $employee->skills ?? 'None', // Assuming a 'skills' attribute exists
             'next_recommendation' => 'Masters in Data Science', // or dynamic logic
         ]);
     }

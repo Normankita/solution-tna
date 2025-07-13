@@ -19,6 +19,7 @@ use yii\db\ActiveRecord;
  */
 class Employee extends ActiveRecord
 {
+    public $skills;
     public static function tableName()
     {
         return 'employee';
@@ -45,7 +46,8 @@ class Employee extends ActiveRecord
 
     public function getEducationLevel()
     {
-        return $this->hasOne(\app\models\EducationLevel::class, ['id' => 'education_level_id']);
+        return $this->hasOne(EducationLevel::class, ['id' => 'level_id'])
+            ->via('latestEducation');
     }
 
     public function getEducationHistory()
@@ -63,7 +65,8 @@ class Employee extends ActiveRecord
     public function getLatestEducation()
     {
         return $this->hasOne(EmployeeEducation::class, ['employee_id' => 'id'])
-            ->orderBy(['year_completed' => SORT_DESC]);
+            ->orderBy(['year_completed' => SORT_DESC])
+            ->with('level');
     }
 
     public function getStudyAssignments()
