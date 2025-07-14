@@ -1,23 +1,23 @@
-$('#employee-dropdown').on('change', function() {
-    const empId = $(this).val();
-    if (!empId) {
-        $('#employee-details').hide();
-        return;
-    }
+$(document).ready(function () {
+    $('#employee-dropdown').on('change', function () {
+        const empId = $(this).val();
+        const url = $(this).data('url');
 
-    $.ajax({
-        url: yii.urls.employeeDetails,
-        data: { id: empId },
-        success: function(data) {
-            if (data.error) {
-                $('#employee-details').show().html('<div class="alert alert-danger">' + data.error + '</div>');
-                return;
-            }
+        if (!empId) {
+            $('#employee-details').hide();
+            return;
+        }
 
-            if (!data.current_education || data.current_education === 'N/A') {
-                $('#employee-details').show().html('<div class="alert alert-info">No previous details found for this employee.</div>');
-            } else {
-                $('#employee-details').show().html(`
+        $.ajax({
+            url: url,
+            data: { id: empId },
+            success: function (data) {
+                if (data.error) {
+                    $('#employee-details').html('<div class="alert alert-danger">' + data.error + '</div>').show();
+                    return;
+                }
+
+                const html = `
                     <div class="card mt-3">
                         <div class="card-body">
                             <h4>Employee Details</h4>
@@ -27,11 +27,12 @@ $('#employee-dropdown').on('change', function() {
                             <p><strong>Recommended Next Study:</strong> ${data.next_recommendation}</p>
                         </div>
                     </div>
-                `);
+                `;
+                $('#employee-details').html(html).show();
+            },
+            error: function () {
+                $('#employee-details').html('<div class="alert alert-danger">Could not load employee details.</div>').show();
             }
-        },
-        error: function() {
-            $('#employee-details').show().html('<div class="alert alert-danger">Could not load employee details.</div>');
-        }
+        });
     });
 });

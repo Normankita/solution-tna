@@ -52,25 +52,23 @@ class StudyAssignmentController extends Controller
 
 
     public function actionEmployeeDetails($id)
-    {
-        // dd($id);
-        Yii::$app->response->format = Response::FORMAT_JSON;
+{
+    Yii::$app->response->format = Response::FORMAT_JSON;
+    $employee = Employee::findOne($id);
 
-        $employee = Employee::findOne($id);
-
-        if (!$employee) {
-            return ['error' => 'Employee not found'];
-        }
-
-        $latestEducation = $employee->getLatestEducation()->one();
-
-        return $this->asJson([
-            'name' => $employee->name,
-            'current_education' => $latestEducation ? $latestEducation->level->name : 'N/A',
-            'skills' => $employee->skills ?? 'None', // Assuming a 'skills' attribute exists
-            'next_recommendation' => 'Masters in Data Science', // or dynamic logic
-        ]);
+    if (!$employee) {
+        return ['error' => 'Employee not found'];
     }
+
+    $latestEducation = $employee->getLatestEducation()->one(); // relation should exist
+    return [
+        'name' => $employee->name,
+        'current_education' => isset($latestEducation) && isset($latestEducation->level) ? $latestEducation->level->name : 'N/A',
+        'skills' => $employee->skills ?? 'None',
+        'next_recommendation' => 'Masters in Data Science',
+    ];
+}
+
 
 
     public function actionHistory($employee_id)

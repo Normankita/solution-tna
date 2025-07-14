@@ -2,24 +2,26 @@
 
 use yii\db\Migration;
 
-class m250713_204902_create_table_education_level extends Migration
+class m250714_075248_create_table_duration extends Migration
 {
     /**
      * {@inheritdoc}
      */
     public function safeUp()
     {
-        $this->createTable('education_level', [
+        $this->createTable('course_period', [
             'id' => $this->primaryKey(),
             'name' => $this->string()->notNull(),
         ]);
+
     }
+
     /**
      * {@inheritdoc}
      */
     public function safeDown()
     {
-        echo "m250713_204902_create_table_education_level cannot be reverted.\n";
+        echo "m250714_075248_create_table_duration cannot be reverted.\n";
 
         return false;
     }
@@ -33,7 +35,7 @@ class m250713_204902_create_table_education_level extends Migration
 
     public function down()
     {
-        echo "m250713_204902_create_table_education_level cannot be reverted.\n";
+        echo "m250714_075248_create_table_duration cannot be reverted.\n";
 
         return false;
     }

@@ -36,16 +36,17 @@ class StudyAssignment extends ActiveRecord
     public function rules()
     {
         return [
-            [['employee_id', 'level_id', 'staff_id', 'competence', 'gap'], 'required'],
+            [['employee_id', 'level_id', 'staff_id', 'competence', 'gap', 'duration', 'financial_year'], 'required'],
             [['employee_id', 'level_id', 'staff_id', 'approved_by'], 'integer'],
             [['date_assigned'], 'safe'],
             [['status'], 'string', 'max' => 20],
-            [['competence', 'gap'], 'string', 'max' => 255],
+            [['competence', 'gap', 'duration', 'financial_year'], 'string', 'max' => 255],
             [['additional_details'], 'string'],
             [['file_path'], 'string', 'max' => 255],
             [['file'], 'file', 'skipOnEmpty' => true, 'extensions' => 'pdf,doc,docx'],
         ];
     }
+
 
     public function attributeLabels()
     {
@@ -57,8 +58,14 @@ class StudyAssignment extends ActiveRecord
             'status' => 'Status',
             'approved_by' => 'Approved By',
             'date_assigned' => 'Date Assigned',
+            'competence' => 'Required Competence',
+            'gap' => 'Gap to be Filled',
+            'duration' => 'Study Duration',
+            'financial_year' => 'Financial Year',
+            'additional_details' => 'Additional Details',
         ];
     }
+
 
     public function getEmployee()
     {
