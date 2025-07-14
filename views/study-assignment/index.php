@@ -4,7 +4,7 @@ use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 
-$this->title = '';
+$this->title = 'Skills Matrix Builder';
 \yii\web\JqueryAsset::register($this);
 ?>
 
@@ -25,6 +25,9 @@ $this->title = '';
         ]); ?>
 
         <div class="row">
+            <ul class="mx-5">
+                <li>Fill in the form below to add a new skill entry for your sub-ordinate</li>
+            </ul>
             <!-- Left Column -->
             <div class="col-md-6 p-5 card mx-4 shadow">
                 <?= $form->field($model, 'employee_id')->dropDownList(
