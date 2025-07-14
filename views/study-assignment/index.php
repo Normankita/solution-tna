@@ -16,8 +16,8 @@ $this->title = 'Skills Matrix Builder';
     <div class="alert alert-danger"><?= Yii::$app->session->getFlash('error') ?></div>
 <?php endif; ?>
 
-<div class="card mt-4">
-    <div class="card-body shadow">
+<div class=" mt-4">
+    <div class="">
         <?php $form = ActiveForm::begin([
             'action' => ['study-assignment/assign'],
             'method' => 'post',
